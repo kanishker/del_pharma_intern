@@ -9,5 +9,6 @@ class Customer extends Model
     //
 
     protected $table = 'tbl_customers';
+    public $timestamps = false;
 
 }
