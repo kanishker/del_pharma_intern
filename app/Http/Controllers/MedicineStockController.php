@@ -27,7 +27,7 @@ class MedicineStockController extends Controller
 
     public function addMedicine (Request $request)
     {
-        
+        $this->authorize('create',medicine::class);//Authorises the oWner To insert Policies
 
         $meds = New medicine;
        
@@ -57,7 +57,7 @@ class MedicineStockController extends Controller
     public function updateMedicine (Request $request)
     {
         
-
+        $this->authorize('update',medicine::class);//Allows the Owner and chashier
         
         try {
         $meds = medicine::find($request->id);
@@ -87,6 +87,7 @@ class MedicineStockController extends Controller
 
     public function deleteMedicine(Request $request)
     {
+        $this->authorize('delete',medicine::class);//Allows the Owner and chashier to delete
         $meds = medicine::find($request->id);
         $meds->delete();
         return response()->json([
