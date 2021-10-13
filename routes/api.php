@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 //Auth routes
 Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout');
+Route::post('register', 'AuthController@registerUser');
 
 //Inventory Crud
 Route::get('viewmedicine','MedicineStockController@viewMedicine')->middleware('jwtAuth');

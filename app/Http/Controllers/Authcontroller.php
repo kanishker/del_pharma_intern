@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
+use App\User;
 use Illuminate\Http\Request;
 
 class Authcontroller extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','registerUser']]);
     }
 
     /**
@@ -63,5 +64,25 @@ class Authcontroller extends Controller
             'user' =>auth()->user(),//gives the user infomations
             'expires_in' => auth()->factory()->getTTL() * 60 //token expiration
         ]);
+    }
+
+    Public function registerUser(Request $request)
+    {
+        $encryptpass = Hash::make($request->password);
+
+        $user = new User;
+        try {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $encryptpass;
+            $user->privilege = $request->privilege;
+            $user->save();
+            return $this->login($request);
+        } catch (Execption $e) {
+            return response()->json([
+                'success'=>false,
+                'message'=>$e
+            ]);
+        }
     }
 }
