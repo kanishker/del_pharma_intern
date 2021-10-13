@@ -92,7 +92,7 @@ class MedicineStockController extends Controller
         $meds->delete();
         return response()->json([
             'success'=>true,
-            'messege'=>'Sucefully deleted',
+            'messege'=>'Succefully deleted',
             'Deleted'=>$meds
         ]);
     }

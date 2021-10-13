@@ -28,7 +28,7 @@ class CustomerController extends Controller
     public function addCustomer(Request $request)
     {
         
-
+        $this->authorize('create',Customer::class);
         $customer = New Customer ;
         try {
             $customer->fullname = $request->fullname;
@@ -54,7 +54,7 @@ class CustomerController extends Controller
     public function updateCustomer(Request $request)
     {
         
-
+        $this->authorize('update',Customer::class);
         
         try {
         $customer = Customer::find($request->id);
@@ -85,6 +85,7 @@ class CustomerController extends Controller
 
     public function deleteCustomer(Request $request)
     {
+        $this->authorize('delete',Customer::class);
         $customer = Customer::find($request->id);
         $customer->delete();
         return response()->json([
